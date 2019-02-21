@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func stringCRLFToLF(name string) string {
+func StringCRLFToLF(name string) string {
 	return strings.Replace(name, "\r\n", "", -1)
 }
 
@@ -18,6 +18,6 @@ func main() {
 
 	text, _ := reader.ReadString('\n')
 
-	fmt.Printf("Hello, %s, nice to meet you!\n", stringCRLFToLF(text))
+	fmt.Printf("Hello, %s, nice to meet you!\n", StringCRLFToLF(text))
 
 }
