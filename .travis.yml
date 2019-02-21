@@ -1,8 +1,12 @@
 language: go
 go:
 - 1.11.x
-install:
-  go get golang.org/x/tools/cmd/cover
+install: 
+  go get golang.org/x/tools/cmd/cover 
   go get github.com/mattn/goveralls
-script:
-  go test ./...
+script: 
+  go test -v -covermode=count -coverprofile=coverage.out
+  $HOME/gopath/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $COVERALLS_TOKEN
+env:
+  global:
+    secure: K+W6kHXyeyz6p6Kcs1IoUbHgpu7uuu5r3ABKQhWW06xyuFQXxEPh/g1SjD6ZW1D2da+FqCZIbUX6joEWS7S1hxgsvYCCCG8gZuW4RnwKAw2RDPEl4sDcIb/20QX3180ZVlPguQW8y9fniWd0fooLhfFQCSB/ZMS0/ic8+cQQtOQeuYotnjS3n0NPMq/eBl0lp7l3X5QB9uh3JODsXlNI9N5VHVQ5FAHK7rhSesdKFFNAheF9bEWoSoJb66klECc4oA+f5OJvwMiB9G0hxV4Kpb0N5SwBnMw+G8heTH7MldRAg8/ojdq3exW2T0rpF8bMXcgih9Fjvm+r5Cu8e6TbAKP5NzStwz81PTT2INi80kJjFwyXHk6+ldxksWIr5uZA+pmlgg7xo7fvaSpiXjAMUrhRMLG0b/IQW9t8eOW4xzpani7e9nPGwBzz7/uec93WphE3uWyi05Z13vPEThP5+iRMVU/Ee+Zng9fs/QCFtTrlGNWs7oV5xUkSjfC8HUlc03Vu2uYHEFJ4rmPABZIXciMULi8PSXKBFwT7fxAY/NA9VGL1t1hZFVDcsxpG0+9WrU3LLPf0LoxZntUcyQMcHDQGUb9qIp+a7ETQi2mW1a8f9+xHtND5tcpalx6GOOwcpnGjvQ0iWQ53WrKEFRBZzDL1U2KX/FXp23494+ptico=
