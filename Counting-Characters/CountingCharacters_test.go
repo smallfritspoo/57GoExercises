@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"runtime"
 	"strings"
 	"testing"
@@ -22,6 +23,7 @@ func TestPromptUser(t *testing.T) {
 }
 
 func TestStringCLRFToLF(t *testing.T) {
+	fmt.Println(runtime.GOOS)
 	input_windows := "Test_windows\r\n"
 	output_windows := "Test_windows"
 	input_linux := "Test_linux\n"
