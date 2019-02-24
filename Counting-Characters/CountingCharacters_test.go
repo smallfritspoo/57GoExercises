@@ -6,24 +6,31 @@ import (
 	"testing"
 )
 
+const osenv string = runtime.GOOS
+
+var question string = "string"
+var win_input string = "a\r\n"
+var lin_input string = "a\n"
+
 func TestPromptUser(t *testing.T) {
-	input := "Test\r\n"
-	question := "string"
-	reader := strings.NewReader(input)
-	returned_data := PromptUser(question, reader)
-	if runtime.GOOS == "windows" {
-		input = strings.TrimRight(input, "\r\n")
+	if osenv == "windows" {
+		win_input = strings.TrimRight(win_input, "\r\n")
+		reader := strings.NewReader(win_input)
+		returned_data := PromptUser(question, reader)
+		if returned_data != win_input {
+			t.Error("Returned value doesn't match input")
+		}
 	} else {
-		input = strings.TrimRight(input, "\n")
-	}
-	if returned_data != input {
-		t.Error("Returned value doesn't match input")
+		lin_input = strings.TrimRight(lin_input, "\n")
+		reader := strings.NewReader(lin_input)
+		returned_data := PromptUser(question, reader)
+		if returned_data != lin_input {
+			t.Error("Returned value doesn't match input")
+		}
 	}
 }
 
 func TestStringCLRFToLF(t *testing.T) {
-	osenv := runtime.GOOS
-
 	if osenv == "windows" {
 		input := "Test_windows\r\n"
 		output := "Test_windows"
