@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"runtime"
 	"strings"
 	"testing"
@@ -23,16 +22,21 @@ func TestPromptUser(t *testing.T) {
 }
 
 func TestStringCLRFToLF(t *testing.T) {
-	fmt.Println("Build Information: {}", runtime.GOOS)
-	input_windows := "Test_windows\r\n"
-	output_windows := "Test_windows"
-	input_linux := "Test_linux\n"
-	output_linux := "Test_linux"
-	if StringCLRFToLF(input_windows) != output_windows {
-		t.Error("Correct windows characters not stripped")
-	}
-	if StringCLRFToLF(input_linux) != output_linux {
-		t.Error("Correct Linux Characters not stripped")
+	osenv := runtime.GOOS
+
+	if osenv == "windows" {
+		input := "Test_windows\r\n"
+		output := "Test_windows"
+		if StringCLRFToLF(input) != output {
+			t.Error("Correct", osenv, " characters not stripped")
+		}
+
+	} else {
+		input := "Test_linux\n"
+		output := "Test_linux"
+		if StringCLRFToLF(input) != output {
+			t.Error("Correct", osenv, " characters not stripped")
+		}
 	}
 }
 
